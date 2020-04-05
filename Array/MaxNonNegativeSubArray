@@ -1,0 +1,47 @@
+typedef long long ll;
+
+vector<int> Solution::maxset(vector<int> &arr) {
+
+    int end = 0;
+    int currLength = 0, maxLength = -1;
+    ll currSum = 0, maxSum = -1;
+
+    int n = arr.size();
+
+
+    for(int i = 0; i < n; i++){
+
+        if(arr[i] >= 0){
+            currSum += arr[i];
+            currLength++;
+        }
+        else{
+            if(currSum > maxSum){
+                if(currLength > maxLength){
+                    end = i;
+                    maxLength = currLength;
+                    maxSum = currSum;
+                }
+            }
+
+            currLength = 0;
+            currSum = 0;
+
+        }
+    }
+
+    if(currSum > maxSum && currLength > maxLength){
+        end = n;
+        maxLength = currLength;
+        maxSum = currSum;
+    }
+
+
+    vector<int> ans;
+    for(int i = end - maxLength; i < end; i++){
+        ans.push_back(arr[i]);
+    }
+
+    return ans;
+
+}

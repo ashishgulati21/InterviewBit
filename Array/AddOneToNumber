@@ -1,0 +1,37 @@
+vector<int> Solution::plusOne(vector<int> &A) {
+
+    vector<int> output;
+    int s = A.size();
+    int rem = 1;
+
+
+    for(int i = s-1; i >= 0; i--){
+        int temp = (A[i]+rem)%10;
+        rem = (A[i]+rem)/10;
+        A[i] = temp;
+    }
+
+    int i = 0;
+
+    if(rem){
+        output.push_back(rem);
+
+    }
+    else{
+        while(A[i] == 0){
+            i++;
+        }
+    }
+
+
+
+
+    for( ;i < s; i++){
+        output.push_back(A[i]);
+    }
+
+    return output;
+
+
+
+}

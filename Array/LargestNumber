@@ -1,0 +1,27 @@
+bool comp(int a, int b){
+
+    string x = to_string(a);
+    string y = to_string(b);
+
+    return stoll(x+y) > stoll(y+x);
+
+}
+
+string Solution::largestNumber(const vector<int> &A) {
+
+    vector<int> v = A;
+    if(v.empty())
+        return "";
+
+    sort(v.begin(), v.end(), comp);
+
+    string finalAns = "";
+    for(int i = 0; i < v.size(); i++){
+        finalAns += to_string(v[i]);
+    }
+
+    if(finalAns[0] == '0')
+        return "0";
+
+    return finalAns;
+}

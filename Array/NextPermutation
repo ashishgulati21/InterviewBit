@@ -1,0 +1,39 @@
+int GreaterNumberIndex(vector<int> arr, int index){
+    int n = arr.size();
+    for(int i = n-1; i > index; i--){
+        if(arr[i] > arr[index]){
+            return i;
+        }
+    }
+
+}
+
+vector<int> Solution::nextPermutation(vector<int> &arr) {
+
+    int n = arr.size();
+    int index = -1;
+
+    for(int i = n-1; i >= 1; i--){
+        if(arr[i] <= arr[i-1]){
+            continue;
+        }
+
+        index = i-1;
+        break;
+    }
+
+    if(index == -1){
+        sort(arr.begin(), arr.end());
+        return arr;
+    }
+
+    // swappedIndex = index of First Number From Right Greater Then arr[index]
+    int swappedIndex = GreaterNumberIndex(arr, index);
+
+    swap(arr[index], arr[swappedIndex]);
+    sort(arr.begin()+index+1, arr.end());
+
+    return arr;
+
+
+}

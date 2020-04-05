@@ -1,0 +1,27 @@
+int Solution::maxSubArray(const vector<int> &A) {
+    int currSum = 0;
+    int bestSum = 0;
+
+    for(int i = 0; i < A.size(); i++){
+        if(A[i] >= 0)
+            currSum += A[i];
+
+        else{
+            bestSum = max(currSum, bestSum);
+            if(currSum + A[i] > 0){
+                currSum += A[i];
+            }
+            else{
+                currSum = 0;
+            }
+        }
+    }
+
+    bestSum = max(currSum, bestSum);
+
+    if(bestSum == 0)
+        return (*max_element(A.begin(), A.end()));
+    else
+        return bestSum;
+
+}

@@ -1,0 +1,54 @@
+vector<int> Solution::repeatedNumber(const vector<int> &A) {
+    int x = 0;
+    int n = A.size();
+
+    for(int i = 1; i <= n; i++){
+        x = x ^ i;
+    }
+
+    for(int i = 0; i < n; i++){
+        x = x ^ A[i];
+    }
+
+
+    int rightMostSetBit = x & ~(x-1);
+    int a = 0, b = 0;
+
+    //divide into two groups
+    for(int i = 0; i < n; i++){
+        if(A[i] & rightMostSetBit)
+            a = a ^ A[i];
+        else
+            b = b ^ A[i];
+    }
+
+
+
+    for(int i = 1; i <= n; i++){
+        if(i & rightMostSetBit)
+            a = a ^ i;
+        else
+            b = b ^ i;
+    }
+
+
+
+    vector<int> v;
+    for(int i = 0; i < n; i++){
+        if(a == A[i]){
+           v.push_back(a);
+           break;
+        }
+    }
+
+    if(v.empty()){
+        v.push_back(b);
+        v.push_back(a);
+    }
+    else{
+        v.push_back(b);
+    }
+
+    return v;
+
+}
