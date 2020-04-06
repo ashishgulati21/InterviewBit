@@ -1,0 +1,52 @@
+void Merge(vector<Interval>& output){
+    int i = 0;
+
+    for(int j = 1; j < output.size(); j++){
+        if(output[i].end >= output[j].start){
+            output[i].end = max(output[j].end, output[i].end);
+        }else{
+            i++;
+            output[i].start = output[j].start;
+            output[i].end = output[j].end;
+        }
+    }
+
+    output.erase(output.begin()+i+1, output.end());
+
+}
+
+vector<Interval> Solution::insert(vector<Interval> &intervals, Interval newInterval) {
+
+    vector<Interval> output;
+    if(intervals.empty()){
+        output.push_back(newInterval);
+        return output;
+    }
+
+    int all = true;
+    if(newInterval.start <= intervals[0].start){
+        output.push_back(newInterval);
+        all = false;
+        for(auto i : intervals){
+            output.push_back(i);
+        }
+    }else{
+
+        for(auto i : intervals){
+            if(i.start > newInterval.start && all){
+                output.push_back(newInterval);
+                all = false;
+            }
+
+            output.push_back(i);
+        }
+    }
+
+    if(all){
+        output.push_back(newInterval);
+    }
+
+
+    Merge(output);
+    return output;
+}

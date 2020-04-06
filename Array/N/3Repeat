@@ -1,0 +1,49 @@
+int Solution::repeatedNumber(const vector<int> &arr) {
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+
+    int n = arr.size();
+    int count1 = 0, count2 = 0, first = INT_MAX, second = INT_MAX;
+
+    for(int i = 0; i < n; i++){
+        if(first == arr[i]){
+            count1++;
+        }
+        else if(second == arr[i]){
+            count2++;
+        }
+
+        else if(count1 == 0){
+            count1 = 1;
+            first = arr[i];
+        }
+        else if(count2 == 0){
+            count2 = 1;
+            second = arr[i];
+        }
+        else{
+            count1--;
+            count2--;
+        }
+    }
+
+    count1 = count2 = 0;
+    for(int i = 0; i < n; i++){
+        if(first == arr[i]){
+            count1++;
+        }
+        else if(second == arr[i]){
+            count2++;
+        }
+    }
+
+    if(count1*3 > n)
+        return first;
+    if(count2*3 > n)
+        return second;
+
+    return -1;
+
+}

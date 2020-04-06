@@ -1,0 +1,27 @@
+int Solution::firstMissingPositive(vector<int> &arr) {
+    int i = -1, j = 0;
+    int n = arr.size();
+    for(; j < n; j++){
+        if(arr[j] > 0){
+            swap(arr[++i], arr[j]);
+        }
+    }
+
+    if(i == -1)
+        return 1;
+
+    for(int p = 0; p <= i; p++){
+        int ind = abs(arr[p])-1;
+        if(ind <= i){
+            arr[ind] = -abs(arr[ind]);
+        }
+    }
+
+    for(int p = 0; p <= i; p++){
+        if(arr[p] > 0)
+            return p+1;
+    }
+
+    return i+2;
+
+}

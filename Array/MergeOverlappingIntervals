@@ -1,0 +1,26 @@
+
+bool comp(Interval A, Interval B){
+    return A.start < B.start;
+}
+
+vector<Interval> Solution::merge(vector<Interval> &A) {
+
+    sort(A.begin(), A.end(), comp);
+
+    int i = 0;
+
+    for(int j = 1; j < A.size(); j++){
+        if(A[i].end >= A[j].start){
+            A[i].end = max(A[i].end, A[j].end);
+        }
+        else{
+            i++;
+            A[i].start = A[j].start;
+            A[i].end = A[j].end;
+        }
+    }
+
+    A.erase(A.begin()+i+1, A.end());
+    return A;
+
+}
